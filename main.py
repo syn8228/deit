@@ -414,7 +414,7 @@ def main(args):
             
         print('Max accuracy: {:.2f}%'.format(max_accuracy))
 
-        log_stats = {**{'train_{}'.format(k): v for k, v in train_stats.items()},
+        log_stats = {**{'train_{}': v for k, v in train_stats.items()},
                      **{'test_{}'.format(k): v for k, v in test_stats.items()},
                      'epoch': epoch,
                      'n_parameters': n_parameters}
