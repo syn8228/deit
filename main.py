@@ -414,17 +414,17 @@ def main(args):
             
         print('Max accuracy: {:.2f}%'.format(max_accuracy))
 
-        # log_stats = {**{'train_{}'.format(k): v for k, v in train_stats.items()},
-        #              **{'test_{}'.format(k): v for k, v in test_stats.items()},
-        #              'epoch': epoch,
-        #              'n_parameters': n_parameters}
-        #
-        #
-        #
-        #
-        # if args.output_dir and utils.is_main_process():
-        #     with (output_dir / "log.txt").open("a") as f:
-        #         f.write(json.dumps(log_stats) + "\n")
+        log_stats = {**{'train_{}'.format(k): v for k, v in train_stats.items()},
+                     **{'test_{}'.format(k): v for k, v in test_stats.items()},
+                     'epoch': epoch,
+                     'n_parameters': n_parameters}
+
+
+
+
+        if args.output_dir and utils.is_main_process():
+            with (output_dir / "log.txt").open("a") as f:
+                f.write(json.dumps(log_stats) + "\n")
 
     total_time = time.time() - start_time
     total_time_str = str(datetime.timedelta(seconds=int(total_time)))
