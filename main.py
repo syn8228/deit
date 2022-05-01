@@ -258,7 +258,7 @@ def main(args):
         state_dict = model.state_dict()
         for k in ['head.weight', 'head.bias', 'head_dist.weight', 'head_dist.bias']:
             if k in checkpoint_model and checkpoint_model[k].shape != state_dict[k].shape:
-                print(f"Removing key {k} from pretrained checkpoint")
+                print("Removing key {} from pretrained checkpoint".format(k))
                 del checkpoint_model[k]
 
         # interpolate position embedding
@@ -321,7 +321,7 @@ def main(args):
     teacher_model = None
     if args.distillation_type != 'none':
         assert args.teacher_path, 'need to specify teacher-path when using distillation'
-        print(f"Creating teacher model: {args.teacher_model}")
+        print("Creating teacher model: {}".format(args.teacher_model))
         teacher_model = create_model(
             args.teacher_model,
             pretrained=False,
@@ -362,10 +362,10 @@ def main(args):
         lr_scheduler.step(args.start_epoch)
     if args.eval:
         test_stats = evaluate(data_loader_val, model, device)
-        print(f"Accuracy of the network on the {len(dataset_val)} test images: {test_stats['acc1']:.1f}%")
+        print("Accuracy of the network on the {} test images: {:.1f}%".format(len(dataset_val), test_stats['acc1']))
         return
 
-    print(f"Start training for {args.epochs} epochs")
+    print("Start training for {} epochs".format(args.epochs))
     start_time = time.time()
     max_accuracy = 0.0
     for epoch in range(args.start_epoch, args.epochs):
@@ -395,7 +395,7 @@ def main(args):
              
 
         test_stats = evaluate(data_loader_val, model, device)
-        print(f"Accuracy of the network on the {len(dataset_val)} test images: {test_stats['acc1']:.1f}%")
+        print("Accuracy of the network on the {} test images: {:.1f}%".format(len(dataset_val), test_stats['acc1']))
         
         if max_accuracy < test_stats["acc1"]:
             max_accuracy = test_stats["acc1"]
