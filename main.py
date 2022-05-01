@@ -412,10 +412,10 @@ def main(args):
                         'args': args,
                     }, checkpoint_path)
             
-        print(f'Max accuracy: {max_accuracy:.2f}%')
+        print('Max accuracy: {:.2f}%'.format(max_accuracy))
 
-        log_stats = {**{f'train_{k}': v for k, v in train_stats.items()},
-                     **{f'test_{k}': v for k, v in test_stats.items()},
+        log_stats = {**{'train_{}'.format(k): v for k, v in train_stats.items()},
+                     **{'test_{}'.format(k): v for k, v in test_stats.items()},
                      'epoch': epoch,
                      'n_parameters': n_parameters}
         
